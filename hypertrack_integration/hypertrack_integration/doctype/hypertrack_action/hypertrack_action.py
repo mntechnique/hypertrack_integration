@@ -16,6 +16,7 @@ class HyperTrackAction(Document):
 			parent_group_id = self.parent_hypertrack_group)
 
 	def on_update(self):
+		pass
 
 	def on_delete(self):
-
+		pass
