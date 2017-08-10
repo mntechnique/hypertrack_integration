@@ -12,19 +12,22 @@ class HyperTrackGroup(NestedSet):
 	nsm_parent_field = "parent_hypertrack_group"
 	
 	def after_insert(self):
-		hypertrack = get_hypertrack()
-		new_hypertrack_group = hypertrack.Group.create( \
-			name=self.hypertrack_name, \
-			parent_group_id = self.parent_hypertrack_group)
+		if self.hypertrack_group_name != "All HyperTrack Groups":
+			hypertrack = get_hypertrack()
+			new_hypertrack_group = hypertrack.Group.create( \
+				name=self.hypertrack_name, \
+				parent_group_id = self.parent_hypertrack_group)
 
 	def on_update(self):
-		hypertrack = get_hypertrack()
-		group = hypertrack.Group.retrieve(self.hypertrack_id)
-		
-		if self.hypertrack_group_name:
-			group.name = self.hypertrack_group_name
-		group.save()
+		if self.hypertrack_group_name != "All HyperTrack Groups":
+			hypertrack = get_hypertrack()
+			group = hypertrack.Group.retrieve(self.hypertrack_id)
+
+			if self.hypertrack_group_name:
+				group.name = self.hypertrack_group_name
+			group.save()
 
 	def on_delete(self):
-		hypertrack = get_hypertrack()
-		group = hypertrack.Group.delete()
+		if self.hypertrack_group_name != "All HyperTrack Groups":
+			hypertrack = get_hypertrack()
+			group = hypertrack.Group.delete()
