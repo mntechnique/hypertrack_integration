@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include hypertrack_integration *.css
+recursive-include hypertrack_integration *.csv
+recursive-include hypertrack_integration *.html
+recursive-include hypertrack_integration *.ico
+recursive-include hypertrack_integration *.js
+recursive-include hypertrack_integration *.json
+recursive-include hypertrack_integration *.md
+recursive-include hypertrack_integration *.png
+recursive-include hypertrack_integration *.py
+recursive-include hypertrack_integration *.svg
+recursive-include hypertrack_integration *.txt
+recursive-exclude hypertrack_integration *.pyc
