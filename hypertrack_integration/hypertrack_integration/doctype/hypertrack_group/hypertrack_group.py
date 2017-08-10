@@ -18,6 +18,16 @@ class HyperTrackGroup(NestedSet):
 			parent_group_id = self.parent_hypertrack_group)
 
 	def on_update(self):
+		hypertrack = get_hypertrack()
+		group = hypertrack.Group.retrieve(self.hypertrack_id)
+		
+		if self.hypertrack_group_name:
+			group.name = self.hypertrack_group_name
+		group.save()
+
+	def on_delete(self):
+		hypertrack = get_hypertrack()
+		group = hypertrack.Group.delete()
 		
 
 @frappe.whitelist()

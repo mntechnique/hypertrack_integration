@@ -5,6 +5,17 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
+from hypertrack_integration.hypertrack_integration.doctype.hypertrack_settings.hypertrack_settings import get_hypertrack 
 
 class HyperTrackAction(Document):
-	pass
+	
+	def after_insert(self):
+		hypertrack = get_hypertrack()
+		new_hypertrack_action = hypertrack.Action.create( \
+			name=self.hypertrack_name, \
+			parent_group_id = self.parent_hypertrack_group)
+
+	def on_update(self):
+
+	def on_delete(self):
+
