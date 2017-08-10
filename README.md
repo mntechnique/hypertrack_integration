@@ -1,6 +1,6 @@
-## Hypertrack Integration
+## HyperTrack Integration
 
-Hypertrack integration with Frappe
+HyperTrack integration with Frappe
 
 #### License
 

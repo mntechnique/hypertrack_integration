@@ -2,14 +2,14 @@
 // rename this file from _test_[name] to test_[name] to activate
 // and remove above this line
 
-QUnit.test("test: Hypertrack User", function (assert) {
+QUnit.test("test: HyperTrack User", function (assert) {
 	let done = assert.async();
 
 	// number of asserts
 	assert.expect(1);
 
-	frappe.run_serially('Hypertrack User', [
-		// insert a new Hypertrack User
+	frappe.run_serially('HyperTrack User', [
+		// insert a new HyperTrack User
 		() => frappe.tests.make([
 			// values to be set
 			{key: 'value'}
