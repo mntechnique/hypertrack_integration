@@ -9,7 +9,7 @@
  "custom": 0, 
  "docstatus": 0, 
  "doctype": "DocType", 
- "document_type": "", 
+ "document_type": "Document", 
  "editable_grid": 1, 
  "engine": "InnoDB", 
  "fields": [
@@ -354,7 +354,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2017-08-10 18:36:57.367971", 
+ "modified": "2017-08-12 16:15:26.743297", 
  "modified_by": "Administrator", 
  "module": "HyperTrack Integration", 
  "name": "HyperTrack Place", 
