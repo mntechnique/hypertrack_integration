@@ -9,7 +9,7 @@ from hypertrack_integration.hypertrack_integration.doctype.hypertrack_settings.h
 
 class HyperTrackAction(Document):
 	
-	def after_insert(self):
+	def validate(self):
 		hypertrack = get_hypertrack()
 		new_hypertrack_action = hypertrack.Action.create(\
 			type=self.type,

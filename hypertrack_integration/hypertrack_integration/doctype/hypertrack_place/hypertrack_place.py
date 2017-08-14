@@ -6,37 +6,28 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from hypertrack_integration.hypertrack_integration.doctype.hypertrack_settings.hypertrack_settings import get_hypertrack 
+import json
 
 class HyperTrackPlace(Document):
-	def before_insert(self):
+	def validate(self):
 		hypertrack = get_hypertrack()
-		new_hypertrack_place = hypertrack.Action.create( \
-			name=self.hypertrack_name, \
-			parent_group_id = self.parent_hypertrack_group)
 
-		self.hypertrack_name = new_hypertrack_place.name
-		self.address = new_hypertrack_place.address
-		self.landmark = new_hypertrack_place.landmark
-		self.zip_code = new_hypertrack_place.zip_code
-		self.city = new_hypertrack_place.city
-		self.state = new_hypertrack_place.state
-		self.country = new_hypertrack_place.country
-		self.location = new_hypertrack_place.location
+		if self.hypertrack_id:
+			existing_place = hypertrack.Place.retrieve(self.hypertrack_id)
+			if existing_place:
+				if self.modified_at != existing_place.modified_at:
+					self.modified_at = existing_place.modified_at
+				return
+		else:
+			new_hypertrack_place = hypertrack.Place.create( \
+				address=self.address, \
+				city=self.city,
+				name=self.hypertrack_name,
+				landmark=self.landmark,
+				zip_code=self.zip_code,
+				state=self.state,
+				country=self.country)
 
-	def on_update(self):
-		hypertrack = get_hypertrack()
-		action = hypertrack.Action.retrieve(self.hypertrack_id)
-
-		action.type = self.type
-		action.lookup_id = self.lookup_id
-		action.scheduled_at = self.scheduled_at
-		action.expected_place = self.expected_place
-		action.metadata = self.metadata
-
-		action.save()
-
-	def on_delete(self):
-		hypertrack = get_hypertrack()
-		action = hypertrack.Action.retrieve(self.hypertrack_id)
-		action.delete():
-
+			self.hypertrack_id = new_hypertrack_place.id
+			self.location = json.dumps(new_hypertrack_place.location)
+			self.created_at = new_hypertrack_place.created_at
