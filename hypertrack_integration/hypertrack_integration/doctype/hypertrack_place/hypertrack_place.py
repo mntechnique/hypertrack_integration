@@ -10,6 +10,8 @@ import json
 
 class HyperTrackPlace(Document):
 	def validate(self):
+
+		self.address = " ".join(frappe.get_value("Address", self.frappe_address, ["address_line1", "address_line2"]))
 		hypertrack = get_hypertrack()
 
 		if self.hypertrack_id:
@@ -19,15 +21,22 @@ class HyperTrackPlace(Document):
 					self.modified_at = existing_place.modified_at
 				return
 		else:
-			new_hypertrack_place = hypertrack.Place.create( \
-				address=self.address, \
+			new_hypertrack_place = hypertrack.Place.create(
+				address=self.address,
 				city=self.city,
 				name=self.hypertrack_name,
 				landmark=self.landmark,
 				zip_code=self.zip_code,
 				state=self.state,
-				country=self.country)
+				country=self.country
+			)
+			for x in xrange(1,10):
+				print(new_hypertrack_place)
 
 			self.hypertrack_id = new_hypertrack_place.id
 			self.location = json.dumps(new_hypertrack_place.location)
-			self.created_at = new_hypertrack_place.created_at
+
+	def on_trash(self):
+		hypertrack = get_hypertrack()
+		place = hypertrack.Place.retrieve(self.hypertrack_id)
+		place.delete()
