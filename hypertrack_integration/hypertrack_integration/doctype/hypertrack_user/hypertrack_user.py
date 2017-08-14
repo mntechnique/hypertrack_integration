@@ -17,19 +17,16 @@ class HyperTrackUser(Document):
 		mobile_no = "+91" + self.phone if self.phone else ""
 
 		if self.hypertrack_id:
-			printstuff("EXISTING USER")
 			existing_htuser = hypertrack.User.retrieve(self.hypertrack_id)
 			if existing_htuser:
 				return
 		else:
-			printstuff("NEW USER")
 			if self.group_id:
 				new_hypertrack_user = hypertrack.User.create( \
 					name=self.hypertrack_name, \
 					phone=mobile_no, \
 					group_id=self.group_id)
 			else:
-				printstuff("Making new HT USER")
 				try:
 					new_hypertrack_user = hypertrack.User.create( \
 						name=self.hypertrack_name, \
@@ -37,27 +34,25 @@ class HyperTrackUser(Document):
 				
 					print ("NEW HT USER", new_hypertrack_user)
 						
-					self.hypertrack_id = new_hypertrack_user.id
-					self.hypertrack_name = new_hypertrack_user.name
-					self.phone = new_hypertrack_user.phone
-
-					self.group_id = new_hypertrack_user.group_id
-					self.lookup_id = new_hypertrack_user.lookup_id
-					self.availability_status = new_hypertrack_user.availability_status 
-					self.location_status = new_hypertrack_user.location_status
-					self.pending_actions = json.dumps(new_hypertrack_user.pending_actions)
-					self.last_location = new_hypertrack_user.last_location
-					self.last_heartbeat_at = new_hypertrack_user.last_heartbeat_at
-					self.last_battery = new_hypertrack_user.last_battery
-					self.created_at = new_hypertrack_user.created_at
-					self.modified_at = new_hypertrack_user.modified_at
-					self.vehicle_type = new_hypertrack_user.vehicle_type
-					self.display = json.dumps(new_hypertrack_user.display)
-					self.is_connected = new_hypertrack_user.is_connected
+					self.hypertrack_id = new_hypertrack_user.get("id")
+					self.hypertrack_name = new_hypertrack_user.get("name")
+					self.phone = new_hypertrack_user.get("phone")
+					self.group_id = new_hypertrack_user.get("group_id")
+					self.lookup_id = new_hypertrack_user.get("lookup_id")
+					self.availability_status = new_hypertrack_user.get("availability_status") 
+					self.location_status = new_hypertrack_user.get("location_status")
+					self.pending_actions = json.dumps(new_hypertrack_user.get("pending_actions"))
+					self.last_location = json.dumps(new_hypertrack_user.get("last_location"))
+					self.last_heartbeat_at = new_hypertrack_user.get("last_heartbeat_at")
+					self.last_battery = new_hypertrack_user.get("last_battery")
+					self.created_at = new_hypertrack_user.get("created_at")
+					self.modified_at = new_hypertrack_user.get("modified_at")
+					self.vehicle_type = new_hypertrack_user.get("vehicle_type")
+					self.display = json.dumps(new_hypertrack_user.get("display"))
+					self.is_connected = new_hypertrack_user.get("is_connected")
 
 				except Exception as e:
 					print("Cant make new HT User", e)
-			
 			
 	# def on_update(self):
 	# 	#Update hypertrack user from local user.
@@ -87,11 +82,10 @@ class HyperTrackUser(Document):
 		
 	# 	user.save()
 
-	# def on_delete(self):
-	# 	hypertrack = get_hypertrack()
-	# 	user = hypertrack.User.retrieve(self.hypertrack_id)
-
-	# 	user.delete()
+	def on_trash(self):
+		hypertrack = get_hypertrack()
+		user = hypertrack.User.retrieve(self.hypertrack_id)
+		user.delete()
 	
 
 def make_new_hypertrack_user(self, method):

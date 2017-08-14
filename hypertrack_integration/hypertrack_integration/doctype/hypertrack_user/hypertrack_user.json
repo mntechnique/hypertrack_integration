@@ -3,7 +3,7 @@
  "allow_guest_to_view": 0, 
  "allow_import": 0, 
  "allow_rename": 0, 
- "autoname": "", 
+ "autoname": "field:frappe_user", 
  "beta": 0, 
  "creation": "2017-08-10 17:56:18.002761", 
  "custom": 0, 
@@ -41,7 +41,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
-   "set_only_once": 0, 
+   "set_only_once": 1, 
    "unique": 1
   }, 
   {
@@ -71,7 +71,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
-   "set_only_once": 0, 
+   "set_only_once": 1, 
    "unique": 0
   }, 
   {
@@ -101,7 +101,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
-   "set_only_once": 0, 
+   "set_only_once": 1, 
    "unique": 0
   }, 
   {
@@ -162,7 +162,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
-   "set_only_once": 0, 
+   "set_only_once": 1, 
    "unique": 0
   }, 
   {
@@ -568,7 +568,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2017-08-12 21:53:17.546069", 
+ "modified": "2017-08-14 17:44:10.338798", 
  "modified_by": "Administrator", 
  "module": "HyperTrack Integration", 
  "name": "HyperTrack User", 
