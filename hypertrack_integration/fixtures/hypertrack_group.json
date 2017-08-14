@@ -5,7 +5,7 @@
   "doctype": "HyperTrack Group", 
   "hypertrack_group_name": "All HyperTrack Groups", 
   "hypertrack_id": null, 
-  "is_group": 0, 
+  "is_group": 1, 
   "lft": 0, 
   "modified": "2017-08-10 21:41:48.265879", 
   "modified_at": null, 
