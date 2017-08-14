@@ -10,8 +10,9 @@ import json
 
 class HyperTrackPlace(Document):
 	def validate(self):
-
-		self.address = " ".join(frappe.get_value("Address", self.frappe_address, ["address_line1", "address_line2"]))
+		address_line1, address_line2 = frappe.get_value("Address", self.frappe_address, ["address_line1", "address_line2"])
+		self.address = " ".join([address_line1 or "", address_line2 or ""])
+		
 		hypertrack = get_hypertrack()
 
 		if self.hypertrack_id:
