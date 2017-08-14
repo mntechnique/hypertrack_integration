@@ -23,9 +23,10 @@ class HyperTrackAction(Document):
 					type=self.type,
 					scheduled_at=scheduled_at,
 					expected_place=expected_place,
+					lookup_id=self.lookup_id
 				)
 
-			self.lookup_id = new_hypertrack_action.lookup_id
+			#self.lookup_id = new_hypertrack_action.lookup_id
 			self.metadata = new_hypertrack_action.metadata
 			self.name = new_hypertrack_action.id
 			self.hypertrack_id = new_hypertrack_action.id
@@ -33,7 +34,7 @@ class HyperTrackAction(Document):
 			action = hypertrack.Action.retrieve(self.hypertrack_id)
 
 			action.type = self.type
-			action.lookup_id = self.lookup_id
+			#action.lookup_id = self.lookup_id
 			action.scheduled_at = self.scheduled_at
 			action.expected_place = self.expected_place
 			action.metadata = self.metadata
