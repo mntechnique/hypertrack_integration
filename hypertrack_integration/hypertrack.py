@@ -190,8 +190,3 @@ class HTGeoFence(HTApi):
 			return response.json()
 		except Exception as e:
 			raise e
-
-@frappe.whitelist(allow_guest=True)
-def events_hook(*args, **kwargs):
-	pass
-

@@ -40,6 +40,7 @@ class HyperTrackGeofence(Document):
 				raise Exception(new_hypertrack_geofence)
 
 			self.name = new_hypertrack_geofence.get("id")
+			self.hypertrack_id = new_hypertrack_geofence.get("id")
 
 
 		elif self.hypertrack_id:

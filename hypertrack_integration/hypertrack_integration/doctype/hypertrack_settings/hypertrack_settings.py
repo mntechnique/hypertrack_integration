@@ -22,3 +22,10 @@ def get_hypertrack():
 	
 	return hypertrack
 
+def get_hypertrack_event(event_id):
+	ht = get_hypertrack()
+	try:
+		event = ht.Event.retrieve(event_id)
+		return event
+	except Exception as e:
+		return None
