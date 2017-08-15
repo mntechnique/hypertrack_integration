@@ -34,7 +34,6 @@ class HyperTrackAction(Document):
 			action = hypertrack.Action.retrieve(self.hypertrack_id)
 
 			action.type = self.type
-			#action.lookup_id = self.lookup_id
 			action.scheduled_at = self.scheduled_at
 			action.expected_place = self.expected_place
 			action.metadata = self.metadata
