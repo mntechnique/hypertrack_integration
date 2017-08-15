@@ -6,5 +6,5 @@ from __future__ import unicode_literals
 import frappe
 import unittest
 
-class TestHyperTrackGeoFence(unittest.TestCase):
+class TestHyperTrackGeofence(unittest.TestCase):
 	pass

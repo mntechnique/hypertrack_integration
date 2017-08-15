@@ -1,5 +1,7 @@
 # see license.txt
 import frappe
+import requests
+import json
 
 class HTApi():
 	def __init__(self, sk):
@@ -91,13 +93,13 @@ class HTGeoFence(HTApi):
 
 	:param sk: API Secret Key provided by HyperTrack
 	"""
-	def create(self, user_id=None, group_type=None, place=None, min_duration=None,
+	def create(self, user_id=None, geofence_type=None, place=None, min_duration=None,
 				max_duration=None, expire_at=None):
 		"""
 		Creates GeoFence
 		
 		:param user_id: User ID
-		:param group_type: Type
+		:param geofence_type: Type
 		:param place: Place
 		:param min_duration: Min Duration
 		:param max_duration: Max Duration
@@ -105,7 +107,7 @@ class HTGeoFence(HTApi):
 		"""
 		data = {
 			"user_id": user_id,
-			"type": group_type
+			"type": geofence_type
 		}
 
 		if place:
@@ -193,6 +195,3 @@ class HTGeoFence(HTApi):
 def events_hook(*args, **kwargs):
 	pass
 
-@frappe.whitelist(allow_guest=True)
-def geofences_hook(*args, **kwargs):
-	pass

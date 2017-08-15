@@ -13,7 +13,7 @@ class HyperTrackAction(Document):
 		hypertrack = get_hypertrack()
 		scheduled_at = frappe.utils.data.get_datetime(self.scheduled_at_dt)
 		scheduled_at = scheduled_at.replace(tzinfo=pytz.timezone(frappe.utils.get_time_zone()))
-		scheduled_at = scheduled_at.utcnow().isoformat()+"Z"
+		scheduled_at = scheduled_at.astimezone(pytz.utc).isoformat()
 
 		place = frappe.get_doc("HyperTrack Place", self.expected_place)
 		expected_place = { "address": place.address }
