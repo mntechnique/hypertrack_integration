@@ -19,6 +19,7 @@ class HyperTrackUser(Document):
 		if self.hypertrack_id:
 			existing_htuser = hypertrack.User.retrieve(self.hypertrack_id)
 			if existing_htuser:
+				self.availability_status = existing_htuser.availability_status
 				return
 		else:
 			if self.group_id:
