@@ -9,10 +9,11 @@ import json
 from frappe.model.document import Document
 from frappe.utils.nestedset import NestedSet
 from hypertrack_integration.hypertrack_integration.doctype.hypertrack_settings.hypertrack_settings import get_hypertrack 
+from hypertrack_integration.hypertrack import HTGroup
 
 class HyperTrackGroup(NestedSet):
 	nsm_parent_field = "parent_hypertrack_group"
-	
+
 	def validate(self):
 		if self.hypertrack_group_name != "All HyperTrack Groups": 
 			if not self.hypertrack_id:
@@ -52,55 +53,3 @@ class HyperTrackGroup(NestedSet):
 		if self.hypertrack_group_name != "All HyperTrack Groups":
 			hypertrack = HTGroup(frappe.db.get_value("HyperTrack Settings",None, "hypertrack_secret_key"))
 			group = hypertrack.delete(self.hypertrack_id)
-
-class HTGroup():
-	def __init__(self, sk):
-		self.headers = {
-			'Authorization': "token " + sk,
-			'Content-Type': 'application/json',
-		}
-		self.group_base_url = 'https://api.hypertrack.com/api/v1/groups/'
-
-	def create(self, name, parent_group_id=None):
-		data = {
-			"name": name
-		}
-		if parent_group_id:
-			data["parent_group_id"] = parent_group_id
-
-		try:
-			response = requests.post(self.group_base_url, headers=self.headers, data=json.dumps(data))
-			return response.json()
-		except Exception as e:
-			raise e
-
-	def retrieve(self, group_uuid):
-		try:
-			response = requests.get(self.group_base_url + group_uuid, headers=self.headers)
-			return response.json()
-		except Exception as e:
-			raise e
-
-	def delete(self, group_uuid):
-		try:
-			response = requests.delete(self.group_base_url + group_uuid, headers=self.headers)
-			return response.text
-		except Exception as e:
-			raise e
-
-	def list(self):
-		try:
-			response = requests.get(self.group_base_url, headers=self.headers)
-			return response.json()
-		except Exception as e:
-			raise e
-
-	def update(self, group_uuid, changed_group_name):
-		data = {
-			"name": changed_group_name
-		}
-		try:
-			response = requests.patch(self.group_base_url + group_uuid, headers=self.headers, data=json.dumps(data))
-			return response.json()
-		except Exception as e:
-			raise e
