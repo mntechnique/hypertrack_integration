@@ -29,3 +29,14 @@ def get_hypertrack_event(event_id):
 		return event
 	except Exception as e:
 		return None
+
+def delete_suspicious_events():
+	# Delete Invalid HyperTrack Events
+	ht_events = frappe.get_all("HyperTrack Event")
+	for e in ht_events:
+		if not get_hypertrack_event(e.get("name")):
+			frappe.delete_doc("HyperTrack Event", e.get("name"))
+			frappe.db.commit()
+
+def all():
+	delete_suspicious_events()

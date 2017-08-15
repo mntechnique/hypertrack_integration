@@ -90,10 +90,10 @@ app_include_js = ["/assets/hypertrack_integration/js/track.js"]
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"hypertrack_integration.tasks.all"
-# 	],
+scheduler_events = {
+	"all": [
+		"hypertrack_integration.hypertrack_integration.doctype.hypertrack_settings.hypertrack_settings.all"
+	]
 # 	"daily": [
 # 		"hypertrack_integration.tasks.daily"
 # 	],
@@ -106,7 +106,7 @@ app_include_js = ["/assets/hypertrack_integration/js/track.js"]
 # 	"monthly": [
 # 		"hypertrack_integration.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------
