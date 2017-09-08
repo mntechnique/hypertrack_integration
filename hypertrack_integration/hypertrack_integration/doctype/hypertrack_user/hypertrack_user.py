@@ -23,10 +23,12 @@ class HyperTrackUser(Document):
 				return
 		else:
 			if self.group_id:
+				group_hypertrack_id = frappe.db.get_value("HyperTrack Group", self.group_id, "hypertrack_id")
+
 				new_hypertrack_user = hypertrack.User.create( \
 					name=self.hypertrack_name, \
 					phone=mobile_no, \
-					group_id=self.group_id)
+					group_id=group_hypertrack_id)
 			else:
 				try:
 					new_hypertrack_user = hypertrack.User.create( \
@@ -55,53 +57,11 @@ class HyperTrackUser(Document):
 				except Exception as e:
 					print("Cant make new HT User", e)
 			
-	# def on_update(self):
-	# 	#Update hypertrack user from local user.
-	# 	hypertrack = get_hypertrack()
-	# 	user = hypertrack.User.retrieve(self.hypertrack_id)
-
-	# 	if self.availability_status:
-	# 		user.availability_status = self.availability_status 
-	# 	if self.display:
-	# 		user.display = self.display
-	# 	if self.group_id:
-	# 		user.group_id = self.group_id
-	# 	if self.is_connected:
-	# 		user.is_connected = self.is_connected
-	# 	if self.last_battery:
-	# 		user.last_battery = self.last_battery
-	# 	if self.last_heartbeat_at:
-	# 		user.last_heartbeat_at = self.last_heartbeat_at
-	# 	if self.location_status:
-	# 		user.location_status = self.location_status
-	# 	if self.lookup_id:
-	# 		user.lookup_id = self.lookup_id
-	# 	if self.modified_at:
-	# 		user.modified_at = self.modified_at
-	# 	if self.name:
-	# 		user.name = self.name
-		
-	# 	user.save()
 
 	def on_trash(self):
-		hypertrack = get_hypertrack()
-		user = hypertrack.User.retrieve(self.hypertrack_id)
-		user.delete()
-	
-
-def make_new_hypertrack_user(self, method):
-	htuser = frappe.new_doc("HyperTrack User")
-	htuser.hypertrack_name = self.first_name + (" " + self.last_name) if self.last_name else ""
-	htuser.phone = self.mobile_no
-	htuser.frappe_user = self.name
-	htuser.save()
-	frappe.db.commit()
-
-# def delete_hypertrack_user(self, method):
-# 	htuser = frappe.get_doc("HyperTrack User", {"frappe_user":self.name})
-# 	htuser.delete()
-# 	frappe.db.commit()
-
-def printstuff(stuff):
-	for x in xrange(1,10):
-		print (stuff)
+		try:
+			hypertrack = get_hypertrack()
+			user = hypertrack.User.retrieve(self.hypertrack_id)
+			user.delete()
+		except Exception as e:
+			raise
