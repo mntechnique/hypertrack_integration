@@ -16,8 +16,8 @@ class HyperTrackUser(Document):
 
 		mobile_no = "+91" + self.phone if self.phone else ""
 
-		if self.hypertrack_id:
-			existing_htuser = hypertrack.User.retrieve(self.hypertrack_id)
+		if self.hypertrack_name:
+			existing_htuser = hypertrack.User.retrieve(self.hypertrack_name)
 			if existing_htuser:
 				self.availability_status = existing_htuser.availability_status
 				return
@@ -37,7 +37,7 @@ class HyperTrackUser(Document):
 				
 					print ("NEW HT USER", new_hypertrack_user)
 						
-					self.hypertrack_id = new_hypertrack_user.get("id")
+					self.hypertrack_name = new_hypertrack_user.get("id")
 					self.hypertrack_name = new_hypertrack_user.get("name")
 					self.phone = new_hypertrack_user.get("phone")
 					self.group_id = new_hypertrack_user.get("group_id")
@@ -57,11 +57,23 @@ class HyperTrackUser(Document):
 				except Exception as e:
 					print("Cant make new HT User", e)
 			
-
 	def on_trash(self):
 		try:
 			hypertrack = get_hypertrack()
-			user = hypertrack.User.retrieve(self.hypertrack_id)
+			user = hypertrack.User.retrieve(self.hypertrack_name)
 			user.delete()
 		except Exception as e:
-			raise
+			raise e
+
+	def assign_actions(self, actions):
+		
+		hypertrack = get_hypertrack()	
+		user = hypertrack.User.retrieve(self.hypertrack_name)	
+		
+		action_ids = [action.name for action in actions]
+
+		for x in xrange(1,10):
+			print ("HT ACTION IDS", action_ids)
+
+		user.assign_actions(action_ids)
+			#raise e
